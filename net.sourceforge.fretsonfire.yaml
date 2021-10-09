@@ -212,7 +212,10 @@ modules:
     build-commands:
       - |
         for f in $(cat MANIFEST); do
-            install -Dm0644 -t "/app/share/fretsonfire/$(dirname "$f")" "$f"
+            if [[ $f == Makefile || $f == MANIFEST || $f == MANIFEST.in || $f == setup.py || $f == *.po || $f == *.pot ]]; then
+                continue
+            fi
+            install -Dm0644 "$f" "/app/share/fretsonfire/$f" || exit 1
         done
       - python2 -mcompileall /app/share/fretsonfire
       - install -Dm0755 -t /app/bin fretsonfire
