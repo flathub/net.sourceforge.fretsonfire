@@ -47,6 +47,7 @@
   </screenshots>
   <launchable type="desktop-id">net.sourceforge.fretsonfire.desktop</launchable>
   <url type="homepage">http://fretsonfire.sourceforge.net/</url>
+  <developer_name>Unreal Voodoo</developer_name>
   <releases>
     <release version="1.3.110" date="2008-11-04" />
   </releases>
