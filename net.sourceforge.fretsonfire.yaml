@@ -196,6 +196,12 @@ modules:
       - type: archive
         url: https://sourceforge.net/projects/fretsonfire/files/fretsonfire/1.3.110/FretsOnFire-1.3.110.tar.gz
         sha256: c8cca75a897a8c4cadac06f92fd85b417ac41fc19fc719e89ddcd91a3c29f9da
+        # IMPORTANT: Manual update of metainfo.xml required
+        x-checker-data:
+          type: html
+          url: http://fretsonfire.sourceforge.net/
+          version-pattern: '>Version ([\d.]+):<'
+          url-template: 'https://sourceforge.net/projects/fretsonfire/files/fretsonfire/$version/FretsOnFire-$version.tar.gz'
       - type: patch
         path: fix_font_rendering.patch
       - type: patch
