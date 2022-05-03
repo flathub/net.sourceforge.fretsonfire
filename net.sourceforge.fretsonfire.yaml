@@ -141,6 +141,10 @@ modules:
       - type: archive
         url: https://downloads.xiph.org/releases/vorbis/vorbis-tools-1.4.2.tar.gz
         sha256: db7774ec2bf2c939b139452183669be84fda5774d6400fc57fde37f77624f0b0
+        x-checker-data:
+          type: html
+          url: https://downloads.xiph.org/releases/vorbis/
+          pattern: '>(vorbis-tools-([\d.]+).tar.gz)<'
 
   - name: imagemagick
     config-opts:
@@ -179,6 +183,11 @@ modules:
       - type: archive
         url: https://github.com/ImageMagick/ImageMagick/archive/refs/tags/7.1.0-32.tar.gz
         sha256: 223d92c1de54bda8c014469cc3b3f30d18afabdd3c004f046cf30999936795dc
+        x-checker-data:
+          type: json
+          url: https://api.github.com/repos/ImageMagick/ImageMagick/releases/latest
+          version-query: '.tag_name'
+          url-query: '"https://github.com/ImageMagick/ImageMagick/archive/refs/tags/" + $version + ".tar.gz"'
     cleanup:
       - '*'
 
