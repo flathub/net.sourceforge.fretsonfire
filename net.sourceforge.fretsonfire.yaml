@@ -144,7 +144,7 @@ modules:
         x-checker-data:
           type: html
           url: https://downloads.xiph.org/releases/vorbis/
-          pattern: '>(vorbis-tools-([\d.]+).tar.gz)<'
+          pattern: '>(vorbis-tools-([\d.]+).tar(?:\.[^<]*)?)<'
 
   - name: imagemagick
     config-opts:
