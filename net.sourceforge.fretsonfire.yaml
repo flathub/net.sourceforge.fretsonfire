@@ -196,7 +196,7 @@ modules:
           type: html
           url: http://fretsonfire.sourceforge.net/
           version-pattern: '>Version ([\d.]+):<'
-          url-template: 'https://sourceforge.net/projects/fretsonfire/files/fretsonfire/$version/FretsOnFire-$version.tar.gz'
+          url-template: https://sourceforge.net/projects/fretsonfire/files/fretsonfire/$version/FretsOnFire-$version.tar.gz
       - type: patch
         path: fix_font_rendering.patch
       - type: patch
