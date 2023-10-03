@@ -1,6 +1,6 @@
 app-id: net.sourceforge.fretsonfire
 runtime: org.freedesktop.Platform
-runtime-version: '21.08'
+runtime-version: '23.08'
 sdk: org.freedesktop.Sdk
 command: fretsonfire
 finish-args:
@@ -37,6 +37,8 @@ modules:
       - type: archive
         url: https://files.pythonhosted.org/packages/0f/9c/78626be04e193c0624842090fe5555b3805c050dfaa81c8094d6441db2be/pygame-1.9.6.tar.gz
         sha256: 301c6428c0880ecd4a9e3951b80e539c33863b6ff356a443db1758de4f297957
+      - type: patch
+        path: shared-modules/pygame/cython-fixes.patch
     buildsystem: simple
     build-commands:
       - pip2 install --prefix=/app .
@@ -75,6 +77,9 @@ modules:
           - type: archive
             url: https://sourceforge.net/projects/mikmod/files/libmikmod/3.3.11.1/libmikmod-3.3.11.1.tar.gz
             sha256: ad9d64dfc8f83684876419ea7cd4ff4a41d8bcd8c23ef37ecb3a200a16b46d19
+        cleanup:
+          - /share/aclocal
+          - /share/info
       - name: fluidsynth
         buildsystem: cmake-ninja
         config-opts:
@@ -85,6 +90,10 @@ modules:
             sha256: da8878ff374d12392eecf87e96bad8711b8e76a154c25a571dd8614d1af80de8
           - type: patch
             path: shared-modules/pygame/fluidsynth-no-rawmidi.patch
+          - type: patch
+            path: shared-modules/pygame/glib.patch
+        cleanup:
+          - /lib64/pkgconfig
       - name: portmidi
         buildsystem: cmake-ninja
         config-opts:
@@ -181,8 +190,8 @@ modules:
       - --without-xml
     sources:
       - type: archive
-        url: https://github.com/ImageMagick/ImageMagick/archive/refs/tags/7.1.0-51.tar.gz
-        sha256: 4333ef2fe63f2510988af82b726f5b1919ebd54037ea6674566c69fcceb67e11
+        url: https://github.com/ImageMagick/ImageMagick/archive/refs/tags/7.1.1-19.tar.gz
+        sha256: 5c9548b15752bc258108bcc6bd9880fffe8feb10f836a40d3e49f91cbf6d7b25
     cleanup:
       - '*'
 
