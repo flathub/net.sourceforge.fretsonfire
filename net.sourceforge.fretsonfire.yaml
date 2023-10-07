@@ -155,46 +155,6 @@ modules:
           url: https://downloads.xiph.org/releases/vorbis/
           pattern: '>(vorbis-tools-([\d.]+)\.tar[^<]*)<'
 
-  - name: imagemagick
-    config-opts:
-      - --disable-dependency-tracking
-      - --enable-static=no
-      - --disable-docs
-      - --without-magick-plus-plus
-      - --without-bzlib
-      - --with-x=no
-      - --without-zlib
-      - --without-zstd
-      - --without-dps
-      - --without-fftw
-      - --without-flif
-      - --without-fpx
-      - --without-djvu
-      - --without-fontconfig
-      - --without-freetype
-      - --without-raqm
-      - --with-gvc=no
-      - --without-heic
-      - --without-jbig
-      - --without-jpeg
-      - --without-lcms
-      - --without-openjp2
-      - --without-lqr
-      - --without-lzma
-      - --without-openexr
-      - --without-pango
-      - --without-raw
-      - --without-tiff
-      - --without-webp
-      - --with-wmf=no
-      - --without-xml
-    sources:
-      - type: archive
-        url: https://github.com/ImageMagick/ImageMagick/archive/refs/tags/7.1.1-19.tar.gz
-        sha256: 5c9548b15752bc258108bcc6bd9880fffe8feb10f836a40d3e49f91cbf6d7b25
-    cleanup:
-      - '*'
-
   - name: fretsonfire
     sources:
       - type: archive
@@ -240,9 +200,8 @@ modules:
       - install -Dm0755 -t /app/bin fretsonfire
       - |
         for res in 16 32 48 64 128; do
-          convert +set date:create +set date:modify data/icon.png -resize ${res}x${res} \
-            -background transparent -gravity center -extent ${res}x${res} icon_${res}.png || exit 1
-          install -Dm0644 icon_${res}.png /app/share/icons/hicolor/${res}x${res}/apps/net.sourceforge.fretsonfire.png || exit 1
+          ffmpeg -y -i data/icon.png -update 1 -vf "scale=${res}:ow:force_original_aspect_ratio=decrease,pad='max(iw,ih)':ow:(ow-iw)/2:(oh-ih)/2:black@0" icon.png || exit 1
+          install -Dm0644 icon.png "/app/share/icons/hicolor/${res}x${res}/apps/net.sourceforge.fretsonfire.png" || exit 1
         done
       - install -Dm0644 -t /app/share/metainfo net.sourceforge.fretsonfire.metainfo.xml
       - install -Dm0644 -t /app/share/applications net.sourceforge.fretsonfire.desktop
