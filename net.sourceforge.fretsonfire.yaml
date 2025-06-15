@@ -1,6 +1,6 @@
 app-id: net.sourceforge.fretsonfire
 runtime: org.freedesktop.Platform
-runtime-version: '23.08'
+runtime-version: '24.08'
 sdk: org.freedesktop.Sdk
 command: fretsonfire
 finish-args:
@@ -43,6 +43,7 @@ modules:
     build-commands:
       - pip2 install --prefix=/app .
     build-options:
+      cflags: -Wno-error=incompatible-pointer-types
       env:
         PORTMIDI_INC_PORTTIME: '1'
         PYGAME_EXTRA_BASE: /app
@@ -123,6 +124,8 @@ modules:
     buildsystem: simple
     build-commands:
       - pip2 install --prefix=/app .
+    build-options:
+      cflags: -Wno-error=incompatible-pointer-types
 
   - name: pillow
     sources:
