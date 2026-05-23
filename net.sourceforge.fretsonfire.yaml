@@ -18,9 +18,9 @@ cleanup:
   - /share/doc
   - /share/man
 modules:
-  - shared-modules/python2.7/python-2.7.json
-
   - shared-modules/glu/glu-9.json
+
+  - shared-modules/pygame/pygame1-python2.json
 
   - name: numpy
     sources:
@@ -30,82 +30,6 @@ modules:
     buildsystem: simple
     build-commands:
       - pip2 install --prefix=/app .
-
-  - name: pygame
-    # Mostly copied from shared-modules/pygame/pygame-1.9.6.json
-    sources:
-      - type: archive
-        url: https://files.pythonhosted.org/packages/0f/9c/78626be04e193c0624842090fe5555b3805c050dfaa81c8094d6441db2be/pygame-1.9.6.tar.gz
-        sha256: 301c6428c0880ecd4a9e3951b80e539c33863b6ff356a443db1758de4f297957
-      - type: patch
-        path: shared-modules/pygame/cython-fixes.patch
-    buildsystem: simple
-    build-commands:
-      - pip2 install --prefix=/app .
-    build-options:
-      cflags: -Wno-error=incompatible-pointer-types
-      env:
-        PORTMIDI_INC_PORTTIME: '1'
-        PYGAME_EXTRA_BASE: /app
-      arch:
-        aarch64:
-          env:
-            ORIGLIBDIRS: /lib:/lib64:/lib/aarch64-linux-gnu
-        arm:
-          env:
-            ORIGLIBDIRS: /lib:/lib/arm-linux-gnueabihf
-        i386:
-          env:
-            ORIGLIBDIRS: /lib:/lib/i386-linux-gnu
-        x86_64:
-          env:
-            ORIGLIBDIRS: /lib:/lib64:/lib/x86_64-linux-gnu
-    modules:
-      - shared-modules/SDL/SDL-1.2.15.json
-      - shared-modules/SDL/SDL_image-1.2.12.json
-      - shared-modules/SDL/SDL_ttf-2.0.11.json
-      - shared-modules/smpeg/smpeg-0.4.5.json
-      - shared-modules/SDL/SDL_mixer-1.2.12.json
-      - name: audiofile
-        sources:
-          - type: archive
-            url: http://audiofile.68k.org/audiofile-0.3.6.tar.gz
-            sha256: cdc60df19ab08bfe55344395739bb08f50fc15c92da3962fac334d3bff116965
-          - type: patch
-            path: shared-modules/pygame/audiofile-gcc6.patch
-      - name: libmikmod
-        sources:
-          - type: archive
-            url: https://sourceforge.net/projects/mikmod/files/libmikmod/3.3.11.1/libmikmod-3.3.11.1.tar.gz
-            sha256: ad9d64dfc8f83684876419ea7cd4ff4a41d8bcd8c23ef37ecb3a200a16b46d19
-        cleanup:
-          - /share/aclocal
-          - /share/info
-      - name: fluidsynth
-        buildsystem: cmake-ninja
-        config-opts:
-          - -DCMAKE_BUILD_TYPE=Release
-        sources:
-          - type: archive
-            url: https://github.com/FluidSynth/fluidsynth/archive/refs/tags/v1.1.11.tar.gz
-            sha256: da8878ff374d12392eecf87e96bad8711b8e76a154c25a571dd8614d1af80de8
-          - type: patch
-            path: shared-modules/pygame/fluidsynth-no-rawmidi.patch
-          - type: patch
-            path: shared-modules/pygame/glib.patch
-        cleanup:
-          - /lib64/pkgconfig
-      - name: portmidi
-        buildsystem: cmake-ninja
-        config-opts:
-          - -DCMAKE_BUILD_TYPE=Release
-          - -DCMAKE_LIBRARY_OUTPUT_DIRECTORY:STRING=/app/lib
-          - -DCMAKE_ARCHIVE_OUTPUT_DIRECTORY:STRING=/app/lib
-          - -DCMAKE_RUNTIME_OUTPUT_DIRECTORY:STRING=/app/bin
-        sources:
-          - type: archive
-            url: https://github.com/PortMidi/portmidi/archive/refs/tags/v2.0.4.tar.gz
-            sha256: 64893e823ae146cabd3ad7f9a9a9c5332746abe7847c557b99b2577afa8a607c
 
   - name: pyopengl
     sources:
