@@ -103,6 +103,8 @@ modules:
         path: net.sourceforge.fretsonfire.metainfo.xml
       - type: file
         path: net.sourceforge.fretsonfire.desktop
+      - type: file
+        path: net.sourceforge.fretsonfire.png
       - type: script
         dest-filename: fretsonfire
         commands:
@@ -119,10 +121,5 @@ modules:
         done
       - python2 -mcompileall /app/share/fretsonfire
       - install -Dm0755 -t /app/bin fretsonfire
-      - |
-        for res in 16 32 48 64 128; do
-          ffmpeg -y -i data/icon.png -update 1 -vf "scale=${res}:ow:force_original_aspect_ratio=decrease,pad='max(iw,ih)':ow:(ow-iw)/2:(oh-ih)/2:black@0" icon.png || exit 1
-          install -Dm0644 icon.png "/app/share/icons/hicolor/${res}x${res}/apps/net.sourceforge.fretsonfire.png" || exit 1
-        done
       - install -Dm0644 -t /app/share/metainfo net.sourceforge.fretsonfire.metainfo.xml
       - install -Dm0644 -t /app/share/applications net.sourceforge.fretsonfire.desktop
