@@ -92,17 +92,13 @@ modules:
           version-pattern: '>Version ([\d.]+):<'
           url-template: https://sourceforge.net/projects/fretsonfire/files/fretsonfire/$version/FretsOnFire-$version.tar.gz
       - type: patch
-        path: fix_font_rendering.patch
-      - type: patch
-        path: pillow-compatibility.patch
-      - type: patch
-        path: fix_hang_when_closing.patch
-      - type: patch
-        path: hide_upload_highscores_setting.patch
-      - type: patch
-        path: fix_crash_when_applying_settings.patch
-      - type: patch
-        path: fix_hardcoded_python_path.patch
+        paths:
+          - patches/fix_font_rendering.patch
+          - patches/pillow-compatibility.patch
+          - patches/fix_hang_when_closing.patch
+          - patches/hide_upload_highscores_setting.patch
+          - patches/fix_crash_when_applying_settings.patch
+          - patches/fix_hardcoded_python_path.patch
       - type: file
         path: net.sourceforge.fretsonfire.metainfo.xml
       - type: file
